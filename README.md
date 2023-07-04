@@ -1,74 +1,25 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Fullstack Project - Front-end Development Showcase
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project showcases my skills as a front-end developer, where I have taken on multiple roles, including front-end development, backend development, design, and authentication implementation. The goal of this project is to demonstrate my proficiency in various technologies and libraries.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Technologies Used
 
-## Description
+- **Typescript:** I have utilized TypeScript to add static typing and enhance the development experience.
+- **Next.js:** The project is built using Next.js, a React framework that enables server-side rendering and efficient client-side navigation.
+- **Styled Components:** I have used Styled Components to create and manage the styling of the components in a modular and reusable way.
+- **Klarna:** Integration with Klarna has been implemented to enable seamless payment processing and enhance the user experience.
+- **Stripe:** Stripe is used for secure payment handling and processing.
+- **Contentful (CMS):** Contentful is integrated as a headless CMS to easily manage and update content for the application.
+- **Nest (Node Backend):** I have developed the backend using Nest, a powerful Node.js framework that facilitates the creation of scalable and maintainable server-side logic.
+- **MongoDB:** MongoDB is utilized as the database to store and manage application data.
+- **Prisma:** Prisma is used as an ORM (Object-Relational Mapping) tool to interact with the database and handle data modeling and querying.
+- **Redux:** Redux is employed as a state management library to efficiently manage the application's global state.
+- **Tanstack:** Tanstack is used for authentication implementation, where I have developed the authentication flow from scratch.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Scalability and Component Independence
 
-## Installation
+I have designed the project with scalability in mind, ensuring that each component is independent and has minimal dependencies on other components. This approach enhances code maintainability, reusability, and flexibility. The project is structured to maximize modularity and ease of development.
 
-```bash
-$ npm install
-```
+## Image Credits
 
-## Running the app
-
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-# webshop-api
+Please note that the images used in the project are not my own. Proper attribution and credits have been given to the respective image sources.
