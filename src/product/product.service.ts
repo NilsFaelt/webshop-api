@@ -18,13 +18,12 @@ export class ProductService {
       content_type: 'product',
       skip: 0,
     });
-
-    const items = response.items.map((item) => item);
+    const items = await response.items.map((item) => item);
+    console.log(items, ' in herererer');
     return items;
   }
 
   public async getById(id: string): Promise<any> {
-    console.log(id);
     const response = await this.client.getEntry(id);
     return response.fields;
   }

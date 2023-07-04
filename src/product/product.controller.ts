@@ -6,7 +6,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('')
-  public async get() {
+  public async get(): Promise<any> {
     return this.productService.get();
   }
   @Get('/:id')
