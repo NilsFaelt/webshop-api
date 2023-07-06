@@ -6,11 +6,11 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @Get('')
-  public async get(): Promise<any> {
-    return this.productService.get();
+  public async get(@Query('searchArgs') searchArgs: string): Promise<any> {
+    return this.productService.get(searchArgs);
   }
   @Get('/:id')
-  public async getById(@Param('id') id: string) {
-    return this.productService.getById(id);
+  public async getById(@Param('id') id: string, @Query('main') main: string) {
+    return this.productService.getById(id, main);
   }
 }

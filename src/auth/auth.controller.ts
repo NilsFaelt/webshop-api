@@ -10,8 +10,8 @@ export class AuthController {
     return this.authService.signUp(authDto);
   }
   @Post('/signin')
-  public async signIn() {
-    this.authService.signIn();
+  public async signIn(@Body() authDto: AuthDto) {
+    return this.authService.signIn(authDto);
   }
   @Post('/loggout')
   public async loggout() {

@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { AuthDto } from './dto';
-import * as bcrypt from 'bcrypt';
 import { Tokens } from './types';
 import { JwtService } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -22,11 +22,23 @@ export class AuthService {
       },
     });
     const tokens = await this.getTokens(createdUser.id, createdUser.email);
+    await this.updateRefreshTokenHash(createdUser.id, tokens.refresh_token);
     return tokens;
   }
+  //video time 57:56
 
-  public async signIn() {
-    return;
+  public async signIn(dto: AuthDto): Promise<Tokens> {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        email: dto.email,
+      },
+    });
+    if (!user)
+      throw new HttpException('User did not exsist', HttpStatus.NOT_FOUND);
+    const passwordMatches = await bcrypt.compare(dto.password, user.hash);
+    if (!passwordMatches)
+      throw new HttpException('Wrong credentials', HttpStatus.FORBIDDEN);
+    return await this.getTokens(user.id, user.email);
   }
 
   public async signOut() {
@@ -57,6 +69,16 @@ export class AuthService {
         },
       ),
     ]);
+
     return { refresh_token: refreshToken, access_token: accesToken };
+  }
+  async updateRefreshTokenHash(userId: number, refreshtoken: string) {
+    const hash = await this.hasehData(refreshtoken);
+    await this.prismaService.user.update({
+      where: { id: userId },
+      data: {
+        hashedRt: hash,
+      },
+    });
   }
 }
