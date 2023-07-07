@@ -10,15 +10,15 @@ export class RefreshTokenStrategy extends PassportStrategy(
   'jwt-refresh',
 ) {
   constructor(private readonly configService: ConfigService) {
-    const refreshTokenSecret = configService.get('REFRESH_TOKEN_SECRET');
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: refreshTokenSecret,
-      passRequestToCallback: true,
+      secretOrKey: configService.get('REFRESH_TOKEN_SECRET'),
+      passReqToCallback: true,
     });
   }
   validate(req: Request, payload: any) {
-    const refreshToken = req.get('authorization').replace('Bearer', '').trim();
+    console.log(payload, ' in stargetgy');
+    const refreshToken = req.get('Authorization')?.replace('bearer', '').trim();
     return { ...payload, refreshToken };
   }
 }

@@ -38,15 +38,37 @@ export class AuthService {
     const passwordMatches = await bcrypt.compare(dto.password, user.hash);
     if (!passwordMatches)
       throw new HttpException('Wrong credentials', HttpStatus.FORBIDDEN);
-    return await this.getTokens(user.id, user.email);
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefreshTokenHash(user.id, tokens.refresh_token);
+    return tokens;
   }
 
-  public async signOut() {
-    return;
+  public async loggout(id: number) {
+    await this.prismaService.user.updateMany({
+      where: { id: id, hashedRt: { not: null } },
+      data: {
+        hashedRt: null,
+      },
+    });
   }
 
-  public async refresh() {
-    return;
+  public async refresh(id: number, refreshToken: string) {
+    const user = await this.prismaService.user.findUnique({
+      where: {
+        id: id,
+      },
+    });
+    if (!user) throw new HttpException('Access denied', HttpStatus.FORBIDDEN);
+    console.log(refreshToken, user, ' in brcypt');
+    const refreshTokenMatches = await bcrypt.compare(
+      refreshToken,
+      user.hashedRt,
+    );
+    if (!refreshTokenMatches)
+      throw new HttpException('Access denied', HttpStatus.FORBIDDEN);
+    const tokens = await this.getTokens(user.id, user.email);
+    await this.updateRefreshTokenHash(user.id, tokens.refresh_token);
+    return tokens;
   }
 
   hasehData(data: string) {
@@ -55,7 +77,7 @@ export class AuthService {
   async getTokens(userId: number, email: string) {
     const [accesToken, refreshToken] = await Promise.all([
       this.jwtService.signAsync(
-        { sub: userId, email },
+        { sub: userId, email: email },
         {
           secret: this.configService.get('ACCESS_TOKEN_SECRET'),
           expiresIn: 60 * 15,
@@ -70,10 +92,10 @@ export class AuthService {
       ),
     ]);
 
-    return { refresh_token: refreshToken, access_token: accesToken };
+    return { access_token: accesToken, refresh_token: refreshToken };
   }
-  async updateRefreshTokenHash(userId: number, refreshtoken: string) {
-    const hash = await this.hasehData(refreshtoken);
+  async updateRefreshTokenHash(userId: number, refreshToken: string) {
+    const hash = await this.hasehData(refreshToken);
     await this.prismaService.user.update({
       where: { id: userId },
       data: {

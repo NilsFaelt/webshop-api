@@ -4,6 +4,9 @@ import { AuthModule } from './auth/auth.module';
 import { PaymentModule } from './payment/payment.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProductModule } from './product/product.module';
+import { MailModule } from './mail/mail.module';
+import { APP_GUARD } from '@nestjs/core';
+import { AccessTokenGuard } from './auth/common';
 
 @Module({
   imports: [
@@ -12,8 +15,9 @@ import { ProductModule } from './product/product.module';
     PaymentModule,
     PrismaModule,
     ProductModule,
+    MailModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [{ provide: APP_GUARD, useClass: AccessTokenGuard }],
 })
 export class AppModule {}
