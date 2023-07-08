@@ -25,7 +25,6 @@ export class AuthService {
     await this.updateRefreshTokenHash(createdUser.id, tokens.refresh_token);
     return tokens;
   }
-  //video time 57:56
 
   public async signIn(dto: AuthDto): Promise<Tokens> {
     const user = await this.prismaService.user.findUnique({
