@@ -4,7 +4,6 @@ import {
   HttpCode,
   HttpStatus,
   Post,
-  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -78,8 +77,25 @@ export class AuthController {
 
   @HttpCode(HttpStatus.OK)
   @Post('/loggout')
-  public async loggout(@GetCurrentUserId() id: number) {
-    console.log(id);
+  public async loggout(
+    @Res({ passthrough: true }) res: Response,
+    @GetCurrentUserId() id: number,
+  ) {
+    res.setHeader('Set-Cookie', [
+      serialize('accessToken', '', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        domain: 'localhost',
+      }),
+      serialize('refreshToken', '', {
+        httpOnly: true,
+        secure: false,
+        sameSite: 'lax',
+        domain: 'localhost',
+      }),
+    ]);
+    return res.send({ status: 'Login successful' });
     this.authService.loggout(id);
   }
   @IsPublic()

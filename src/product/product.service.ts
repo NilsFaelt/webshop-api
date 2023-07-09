@@ -13,16 +13,19 @@ export class ProductService {
     });
   }
 
-  public async get(searchArgs: string): Promise<EntryCollection<any>> {
+  public async get(args: {
+    title: string;
+    category: string;
+  }): Promise<EntryCollection<any>> {
     const response = await this.client.getEntries({
       content_type: 'product',
       skip: 0,
       limit: 12,
     });
 
-    if (searchArgs.length > 0) {
+    if (args?.title?.length > 0) {
       const filteredItems = response.items.filter((item) =>
-        item.fields.title.toLowerCase().includes(searchArgs.toLowerCase()),
+        item.fields.title.toLowerCase().includes(args.title.toLowerCase()),
       );
       return filteredItems;
     }

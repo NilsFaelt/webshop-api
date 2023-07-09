@@ -8,8 +8,11 @@ export class ProductController {
 
   @IsPublic()
   @Get('')
-  public async get(@Query('searchArgs') searchArgs: string): Promise<any> {
-    return this.productService.get(searchArgs);
+  public async get(
+    @Query() args: { title: string; category: string },
+  ): Promise<any> {
+    console.log(args);
+    return this.productService.get(args);
   }
   @IsPublic()
   @Get('/:id')
