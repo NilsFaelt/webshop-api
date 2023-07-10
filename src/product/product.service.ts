@@ -23,6 +23,18 @@ export class ProductService {
       limit: 12,
     });
 
+    if (args.category) {
+      const words = args.category
+        .split(/\s*,\s*/)
+        .map((word) => word.toLowerCase());
+      const filteredByCategory = response.items.filter((each) => {
+        if (each.fields.category.some((word) => words.includes(word))) {
+          return each;
+        }
+      });
+      console.log(filteredByCategory, ' by category');
+    }
+
     if (args?.title?.length > 0) {
       const filteredItems = response.items.filter((item) =>
         item.fields.title.toLowerCase().includes(args.title.toLowerCase()),

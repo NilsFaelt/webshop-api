@@ -11,7 +11,6 @@ export class ProductController {
   public async get(
     @Query() args: { title: string; category: string },
   ): Promise<any> {
-    console.log(args);
     return this.productService.get(args);
   }
   @IsPublic()
