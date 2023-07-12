@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { createClient, EntryCollection } from 'contentful';
 import { ConfigService } from '@nestjs/config';
+import { ProductType } from './types.ts';
 
 @Injectable()
 export class ProductService {
@@ -16,7 +17,7 @@ export class ProductService {
   public async get(args: {
     title: string;
     category: string;
-  }): Promise<EntryCollection<any>> {
+  }): Promise<ProductType[]> {
     const response = await this.client.getEntries({
       content_type: 'product',
       skip: 0,
@@ -32,7 +33,7 @@ export class ProductService {
           return each;
         }
       });
-      console.log(filteredByCategory, ' by category');
+      return filteredByCategory;
     }
 
     if (args?.title?.length > 0) {
@@ -45,7 +46,7 @@ export class ProductService {
     return items;
   }
 
-  public async getById(id: string, main: string): Promise<any> {
+  public async getById(id: string, main: string): Promise<ProductType> {
     if (main === 'true') {
       const response = await this.client.getEntries({
         content_type: 'productMainDisplay',

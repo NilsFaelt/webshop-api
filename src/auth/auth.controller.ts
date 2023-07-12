@@ -33,21 +33,7 @@ export class AuthController {
   ) {
     const tokens = await this.authService.signIn(authDto);
 
-    res.setHeader('Set-Cookie', [
-      serialize('accessToken', tokens.access_token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-      serialize('refreshToken', tokens.refresh_token, {
-        httpOnly: true,
-        secure: true,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-    ]);
-    return res.send({ status: 'Login successful' });
+    return res.send(tokens);
   }
   @IsPublic()
   @HttpCode(HttpStatus.OK)
@@ -58,21 +44,7 @@ export class AuthController {
   ) {
     const tokens = await this.authService.signIn(authDto);
 
-    res.setHeader('Set-Cookie', [
-      serialize('accessToken', tokens.access_token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-      serialize('refreshToken', tokens.refresh_token, {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-    ]);
-    return res.send({ status: 'Login successful' });
+    return res.send(tokens);
   }
 
   @HttpCode(HttpStatus.OK)
@@ -81,21 +53,6 @@ export class AuthController {
     @Res({ passthrough: true }) res: Response,
     @GetCurrentUserId() id: number,
   ) {
-    res.setHeader('Set-Cookie', [
-      serialize('accessToken', '', {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-      serialize('refreshToken', '', {
-        httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
-        domain: 'localhost',
-      }),
-    ]);
-    return res.send({ status: 'Login successful' });
     this.authService.loggout(id);
   }
   @IsPublic()
@@ -110,3 +67,24 @@ export class AuthController {
     return this.authService.refresh(id, refreshToken);
   }
 }
+
+// setCookies(res: Response, tokens: any) {
+//   const threeDaysInSeconds = 3 * 24 * 60 * 60; // 3 days in seconds
+//   const expirationDate = new Date(Date.now() + threeDaysInSeconds * 1000);
+//   res.setHeader('Set-Cookie', [
+//     serialize('accessToken', tokens.access_token, {
+//       httpOnly: true,
+//       secure: false,
+//       sameSite: 'lax',
+//       domain: 'localhost',
+//       expires: expirationDate,
+//     }),
+//     serialize('refreshToken', tokens.refresh_token, {
+//       httpOnly: true,
+//       secure: false,
+//       sameSite: 'lax',
+//       domain: 'localhost',
+//       expires: expirationDate,
+//     }),
+//   ]);
+// }
